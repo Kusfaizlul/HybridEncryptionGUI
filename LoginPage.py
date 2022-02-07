@@ -150,7 +150,7 @@ class Ui_MaiMenu(object):
         if Username == "" and Password == "":
             QMessageBox.about (Form, "Alert", "Username and Password cannot be blank. Please try again.") 
 
-        elif Username[0] == "`" or Username[0] == "-" or Username[0] == "_" or Username[0] == '"':
+        elif Username[0] == "`" or Username[0] == "-" or Username[0] == "_" or Username[0] == '"' or Username[0] == '~' or Username[0] == '&' :
             sq = 9999
             Client.send(str(sq).encode())
             QMessageBox.about (Form, "Alert", "No Injection Please. Terminating the program.")
@@ -166,6 +166,7 @@ class Ui_MaiMenu(object):
         
         if result % 2 == 0 :
             QMessageBox.about (Form, "Successful logged in", "Successful log in. Welcome " + Username)
+            self.close()
         else:
             QMessageBox.about (Form, "Invalid Credential", "Invalid Credential Please Try Again. ")
 
@@ -251,6 +252,7 @@ if __name__ == "__main__":
         print("Successful Connected !")
     except socket.error as e:
         print (str(e))
+        exit()
 
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()

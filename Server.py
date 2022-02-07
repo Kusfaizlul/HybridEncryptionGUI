@@ -159,13 +159,13 @@ def ProcessStart(server):
                 
                     new = 1                     # Updating to make sure run once only
                     #data.close()
-            print ("--- THE SERVER IS READY ---")
+           # print ("--- THE SERVER IS READY ---")
 
             wspc = "whitespace"
              
             bf = int(server.recv(1024).decode())
             if bf == 9999:
-                print ("The Client Were Forcely Quit Due to Brute Force !")
+                print ("  The Client Were Forcely Quit Due to Brute Force !")
                 server.send(wspc.encode())
                 return
             else:
@@ -173,7 +173,7 @@ def ProcessStart(server):
 
             sq = server.recv(1024).decode()
             if int(sq) == 9999:
-                print ("The Client Were Forcely Quit Due to SQL Injection !")
+                print ("  The Client Were Forcely Quit Due to SQL Injection !")
                 return
             else:
                 server.send(wspc.encode())
@@ -219,13 +219,10 @@ def ProcessStart(server):
                 if cpuser == username[i] and cpass == password[i]:
                     result = 2 #"Succesfully logged in !"
                     loop = False
-                    print ("IP " + str(addr) + " Successfull Logged In. Welcome " + cpuser)
-                else:
-                    result = 1#"Invalid credential please try again !"
+                    print ("  IP " + str(addr) + " Successfull Logged In. Welcome " + cpuser)
 
             #    Result
             server.send(str(result).encode())
-            print("\n\n")
     
     elif result == 2:
         print ("IP " + str(addr) + " Successfull Logged In. Welcome")
@@ -250,11 +247,12 @@ if __name__ == '__main__':
     #   Open 5 connection to listen
     
     S.listen(5)
-    
+    print('-------------------- Server Logs --------------------')
+
     while True:
         try:
             server, addr = S.accept()
-            print('Sucessfully Connected !! ')
+            print('  Sucessfully Connected !! ')
 
             p = Process(target=ProcessStart, args=(server,))
             p.start()
